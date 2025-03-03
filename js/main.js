@@ -153,8 +153,8 @@ if (mapElement) {
     let baseMaps = {
         "Open Street Map": osmLayer,
         "Open Topo Map": openTopoLayer,
-        "Яндекс Схема": yandexLayer,
-        "Яндекс Спутник": yandexSatelliteLayer
+        "Yandex Map": yandexLayer,
+        "Yandex Satellite": yandexSatelliteLayer
     };
 
     let layerControlCollapsed = false;
@@ -254,13 +254,6 @@ if (mapElement) {
         L.easyButton('button-icon welcome-icon', function (btn, map) {
             openWelcome();
         }, 'О проекте').addTo(map)
-    }
-
-    // --- statistics ---
-    if (!hiddenButtonsMode) {
-        L.easyButton('button-icon statistics-icon', function (btn, map) {
-            openStats();
-        }, 'Немного статистики').addTo(map)
     }
 
     // --- statistics ---
@@ -471,18 +464,18 @@ if (mapElement) {
     }
 
     // --- call center
-    if (!hiddenButtonsMode) {
-        L.easyButton({
-            position: 'bottomright',
-            leafletClasses: false,
-            states: [{
-                stateName: 'call-icon',
-                icon: 'call-icon',
-                title: 'Группа поддержки',
-                onClick: callCenter
-            }]
-        }).addTo(map);
-    }
+    // if (!hiddenButtonsMode) {
+    //     L.easyButton({
+    //         position: 'bottomright',
+    //         leafletClasses: false,
+    //         states: [{
+    //             stateName: 'call-icon',
+    //             icon: 'call-icon',
+    //             title: 'Группа поддержки',
+    //             onClick: callCenter
+    //         }]
+    //     }).addTo(map);
+    // }
 }
 
 tuneContextMenu();
