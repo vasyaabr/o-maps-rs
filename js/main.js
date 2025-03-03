@@ -335,12 +335,6 @@ if (mapElement) {
         });
     }
 
-    // if (Math.random() < 0.3) {
-        setTimeout(function () {
-            notificationControl.success(tips[Math.floor(Math.random() * tips.length)]);
-        }, 5000);
-    // }
-
     // --- opacity slider (https://github.com/Eclipse1979/leaflet-slider) ---
     if (!hiddenButtonsMode) {
         let sliderOptions = {
