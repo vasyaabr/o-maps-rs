@@ -53,7 +53,7 @@ html, body, #map {
     margin-left:-400px;
     z-index: 777;
 }
-#map_region_selector {
+.language-map-selector {
     position:absolute;
     top:12px;
     left:60px;
@@ -62,7 +62,7 @@ html, body, #map {
     padding: 5px;
     border-radius: 5px;
 }
-#charts_region_selector {
+.language-sheet-selector {
     position: relative;
     top: -6px;
     left: 30px;

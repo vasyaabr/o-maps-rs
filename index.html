@@ -1,10 +1,10 @@
 ﻿ <!DOCTYPE html>
-<html lang="ru">
+<html lang="sr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Спортивные карты Белграда: ориентирование и рогейн</title>
-    <meta name="description" content="Карты? Найдутся все! Все спортивные карты Белграда в наглядной форме с фильтрацией и описанием.">
+    <title data-i18n="index.title">Belgrade Sports Maps: Orienteering and Rogaining</title>
+    <meta name="description" data-i18n-content="index.metaDescription" content="Maps? You'll find them all! All sports maps of Belgrade presented clearly with filtering and descriptions.">
     <link rel="icon" type="image/png" href="favicon.png"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -21,11 +21,11 @@
     <link rel="stylesheet" href="js/ext/leaflet.notifications/leaflet-notifications.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
 
-    <meta property="og:title" content="Спортивные карты Белграда: ориентирование и рогейн">
-    <meta property="og:site_name" content="Спортивные карты: ориентирование и рогейн">
-    <meta property="og:url" content="https://o-maps.spb.ru/">
-    <meta property="og:description" content="Карты? Найдутся все! Все спортивные карты Белграда в наглядной форме с фильтрацией и описанием.">
-    <meta property="og:image" content="https://o-maps.spb.ru/o-maps-preview.jpg">
+    <meta property="og:title" data-i18n-content="index.ogTitle" content="Belgrade Sports Maps: Orienteering and Rogaining">
+    <meta property="og:site_name" data-i18n-content="index.ogSiteName" content="Sports Maps: Orienteering and Rogaining">
+    <meta property="og:url" content="https://o-maps.rs/">
+    <meta property="og:description" data-i18n-content="index.ogDescription" content="Maps? You'll find them all! All sports maps of Belgrade presented clearly with filtering and descriptions.">
+    <meta property="og:image" content="https://o-maps.rs/o-maps-preview.jpg">
 
 </head>
 <body>
@@ -63,6 +63,11 @@
     </noscript>
 
     <div id="map"></div>
+    <select id="language" class="language-map-selector">
+        <option value="sr">Srpski</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+    </select>
     <img id="spinner" src="images/snowman.gif" alt="" />
     <div id="counter"></div>
 
@@ -85,6 +90,11 @@
     <script src="js/ext/Leaflet.FileLayer/togeojson.js"></script>
     <script src="js/ext/Leaflet.FileLayer/leaflet.filelayer.js"></script>
     <script src="js/ext/leaflet.notifications/leaflet-notifications.min.js"></script>
+
+    <!-- Localisation support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyglot.js/0.4.3/polyglot.min.js"></script> <!-- backed up to js/ext -->
+    <script src="js/locales.js"></script>
+    <script src="js/localisation.js"></script>
 
     <script src="js/maps-serbia.js"></script>
 
@@ -112,5 +122,6 @@
     <script src="js/map-build.js"></script>
     <script src="js/map-build-serbia.js"></script>
     <script src="js/main.js"></script>
+
 </body>
 </html>

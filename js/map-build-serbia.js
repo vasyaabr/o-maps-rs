@@ -1,6 +1,6 @@
 function buildOverlayMapsContents() {
     return {
-        "Цити": cityGroup,
+        [polyglot.t("overlays.city")]: cityGroup,
         "Паркови": parkGroup,
         "Форест": forestGroup,
         "Специјални": specialGroup,
