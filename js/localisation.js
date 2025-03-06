@@ -1,7 +1,9 @@
+const DEFAULT_LANGUAGE = "sr";
+
 let polyglot = new Polyglot();
 
 function loadTranslations() {
-    const savedLang = localStorage.getItem("language") || "en";
+    const savedLang = localStorage.getItem("language") || DEFAULT_LANGUAGE;
     updateLanguage(savedLang);
     document.getElementById("language").value = savedLang;
 }
@@ -23,7 +25,8 @@ function updateLanguage(lang) {
 }
 
 document.getElementById("language").addEventListener("change", function() {
-    updateLanguage(this.value);
+    localStorage.setItem("language", this.value);
+    location.reload();
 });
 
 loadTranslations();

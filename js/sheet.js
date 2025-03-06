@@ -1,6 +1,3 @@
-
-const mapTypes = ['Город', 'Парки', 'Лес', 'Спец.', 'Рогейн'];
-
 window.onload = function() {
 
     oMaps.sort((a, b) => (a.year || 0) - (b.year || 0))

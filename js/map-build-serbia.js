@@ -1,15 +1,15 @@
 function buildOverlayMapsContents() {
     return {
         [polyglot.t("overlays.city")]: cityGroup,
-        "Паркови": parkGroup,
-        "Форест": forestGroup,
-        "Специјални": specialGroup,
-        "<span class='layer-separator'>2020-те</span>": group2020th,
-        "2010-те": group2010th,
-        "2000-те": group2000th,
-        "90-те": group90th,
-        "Ретро": groupRetro,
-        "???": groupUnknownYear,
-        "<span class='layer-separator'>Рогаине</span>": rogaineGroup,
+        [polyglot.t("overlays.park")]: parkGroup,
+        [polyglot.t("overlays.forest")]: forestGroup,
+        [polyglot.t("overlays.special")]: specialGroup,
+        [polyglot.t("overlays.2020")]: group2020th,
+        [polyglot.t("overlays.2010")]: group2010th,
+        [polyglot.t("overlays.2000")]: group2000th,
+        [polyglot.t("overlays.90")]: group90th,
+        [polyglot.t("overlays.retro")]: groupRetro,
+        [polyglot.t("overlays.unknown")]: groupUnknownYear,
+        [polyglot.t("overlays.rogaine")]: rogaineGroup,
     };
 }

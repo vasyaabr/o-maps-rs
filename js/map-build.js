@@ -7,8 +7,6 @@ const HAS_WO_AUTHOR_PARAM = urlParams.has('wo-author');
 const HAS_ONLY_WO_AUTHOR_PARAM = urlParams.has('only-wo-author');
 
 const ATTRIBUTION = '© <a href="https://github.com/efradkin/o-maps" target="_blank">O-maps</a> | <a href="https://www.openstreetmap.org/copyright" target="_blank">OSM</a>';
-const CLEAR_MAP_LABEL = 'Убрать ориенты';
-const SHOW_ALL_LABEL = 'Показать все ориенты';
 
 let osmLayer, openTopoLayer, yandexLayer, yandexSatelliteLayer, activeLayers = [];
 
@@ -86,20 +84,36 @@ if (mapElement) {
 
 function buildOverlayMapsContents() {
     return {
-        "Город": cityGroup,
-        "Парки": parkGroup,
-        "Лес": forestGroup,
-        "Специальные": specialGroup,
-        "<span class='layer-separator'>2020-е</span>": group2020th,
-        "2010-е": group2010th,
-        "2000-е": group2000th,
-        "90-е": group90th,
-        "Ретро": groupRetro,
-        "???": groupUnknownYear,
-        "<span class='layer-separator'>Необычные</span>": funGroup,
-        "<span class='layer-separator'>Рогейн</span>": rogaineGroup,
+        [polyglot.t("overlays.city")]: cityGroup,
+        [polyglot.t("overlays.park")]: parkGroup,
+        [polyglot.t("overlays.forest")]: forestGroup,
+        [polyglot.t("overlays.special")]: specialGroup,
+        [polyglot.t("overlays.2020")]: group2020th,
+        [polyglot.t("overlays.2010")]: group2010th,
+        [polyglot.t("overlays.2000")]: group2000th,
+        [polyglot.t("overlays.90")]: group90th,
+        [polyglot.t("overlays.retro")]: groupRetro,
+        [polyglot.t("overlays.unknown")]: groupUnknownYear,
+        [polyglot.t("overlays.rogaine")]: rogaineGroup,
     };
 }
+
+// function buildOverlayMapsContents() {
+//     return {
+//         "Город": cityGroup,
+//         "Парки": parkGroup,
+//         "Лес": forestGroup,
+//         "Специальные": specialGroup,
+//         "<span class='layer-separator'>2020-е</span>": group2020th,
+//         "2010-е": group2010th,
+//         "2000-е": group2000th,
+//         "90-е": group90th,
+//         "Ретро": groupRetro,
+//         "???": groupUnknownYear,
+//         "<span class='layer-separator'>Необычные</span>": funGroup,
+//         "<span class='layer-separator'>Рогейн</span>": rogaineGroup,
+//     };
+// }
 
 function allocateMap(m, imgLayer) {
     let added = false;
@@ -161,59 +175,59 @@ function isMapAcceptable(m) {
 
 function buildContextmenuItems() {
     return [{
-        text: 'О проекте',
+        text: polyglot.t("main.contextAbout"),
         icon: 'images/information.png',
         callback: openWelcome
     }, '-', {
-        text: 'Координаты',
+        text: polyglot.t("main.contextCoords"),
         icon: 'images/coordinates.png',
         callback: showCoordinates
     }, {
-        text: 'Центр сюда',
+        text: polyglot.t("main.contextCenter"),
         icon: 'images/point.png',
         callback: centerMap
     }, '-', {
-        text: SHOW_ALL_LABEL,
+        text: polyglot.t("main.contextShowOrients"),
         icon: 'images/maps.png',
         callback: showAllOrients
     }, {
-        text: CLEAR_MAP_LABEL,
+        text: polyglot.t("main.contextHideOrients"),
         icon: 'images/eraser.png',
         callback: hideOrients
     }, {
-        text: 'Показать все годы',
+        text: polyglot.t("main.contextShowYears"),
         icon: 'images/calendar.png',
         callback: showAllAges
     }, {
-        text: 'Очистить все годы',
+        text: polyglot.t("main.contextHideYears"),
         icon: 'images/white-calendar.png',
         callback: clearAges
     }, '-', {
-        text: 'Увеличить',
+        text: polyglot.t("main.contextZoomIn"),
         icon: 'images/zoom-in.png',
         callback: zoomIn
     }, {
-        text: 'Уменьшить',
+        text: polyglot.t("main.contextZoomOut"),
         icon: 'images/zoom-out.png',
         callback: zoomOut
     }, '-', {
-        text: 'Всплыв.подсказки',
+        text: polyglot.t("main.contextPopups"),
         icon: 'images/info.png',
         callback: popupsSwitch
     }, {
-        text: 'Скрывать карты',
+        text: polyglot.t("main.contextMapSwitch"),
         icon: 'images/hide.png',
         callback: hideMapsSwitch
     }, {
-        text: 'Выделять полноразмеры',
+        text: polyglot.t("main.contextFullSizeSwitch"),
         icon: 'images/expand.png',
         callback: fullSizeSwitch
     }, {
-        text: hiddenButtonsMode ? 'Показать кнопки' : 'Скрыть кнопки',
+        text: hiddenButtonsMode ? polyglot.t("main.contextButtonsShow") : polyglot.t("main.contextButtonsHide"),
         icon: 'images/menu.png',
         callback: hiddenButtonsModeSwitch
     }, '-', {
-        text: 'Редактирование',
+        text: polyglot.t("main.contextEdit"),
         icon: 'images/edit.png',
         callback: editModeSwitch
     }];

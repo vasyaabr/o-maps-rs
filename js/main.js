@@ -123,19 +123,19 @@ if (mapElement) {
     map.on('overlayadd overlayremove zoomlevelschange resize zoomend moveend', function () {
         visibleMaps = recalculateLayers();
     });
-    map.on('overlayadd', function (e) {
-        if (!(e.name.includes('Рогейн') || e.name.includes('Рогаине')) && !e.name.includes('Необычные')) {
-            activeLayers.push(overlayMapsContents[e.name]);
-            syncMaps();
-        }
-    });
+    // map.on('overlayadd', function (e) {
+    //     if (!(e.name.includes('Рогейн') || e.name.includes('Рогаине')) && !e.name.includes('Необычные')) {
+    //         activeLayers.push(overlayMapsContents[e.name]);
+    //         syncMaps();
+    //     }
+    // });
 
-    map.on('overlayremove', function (e) {
-        if (!e.name.includes('Рогейн') && !e.name.includes('Необычные')) {
-            removeFromArray(activeLayers, overlayMapsContents[e.name]);
-            syncMaps();
-        }
-    });
+    // map.on('overlayremove', function (e) {
+    //     if (!e.name.includes('Рогейн') && !e.name.includes('Необычные')) {
+    //         removeFromArray(activeLayers, overlayMapsContents[e.name]);
+    //         syncMaps();
+    //     }
+    // });
 
     // Save the map state whenever the map is moved or zoomed
     map.on('moveend', () => saveMapState(map, REGION_KEY));
@@ -175,7 +175,7 @@ if (mapElement) {
         clearButton: true,
         // maxHeight: '40vh',
         autocompleteFeatures: ['setValueOnClick', 'arrowKeyNavigation'],
-        title: 'Поиск карты (Ctrl-Shift-F)',
+        title: polyglot.t("main.search"),
     }).addTo(map);
 
     searchBox.onInput("keyup", function (e) {
@@ -253,14 +253,14 @@ if (mapElement) {
     if (!hiddenButtonsMode) {
         L.easyButton('button-icon welcome-icon', function (btn, map) {
             openWelcome();
-        }, 'О проекте').addTo(map)
+        }, polyglot.t("main.about")).addTo(map)
     }
 
     // --- statistics ---
     if (!hiddenButtonsMode) {
         L.easyButton('button-icon papers-icon', function (btn, map) {
             downloadSheet();
-        }, 'Сводная таблица карт').addTo(map)
+        }, polyglot.t("main.list")).addTo(map)
     }
 
     // --- Leaflet.QgsMeasure (https://github.com/gabriel-russo/Leaflet.QgsMeasure)
@@ -278,12 +278,12 @@ if (mapElement) {
                 className: 'leaflet-div-icon leaflet-editing-icon',
             }),
             text: {
-                title: 'Измерение расстояний', // Plugin Button Text
-                segments_title: 'Перегоны (м)', // Segments box title
+                title: polyglot.t("main.rangePlugin"), // Plugin Button Text
+                segments_title: polyglot.t("main.rangePluginTitle"), // Segments box title
                 segments_from: "", // Segment start label
                 segments_to: " - ", // Segment end label
-                segments_total: 'Всего: ', // Total distance label
-                segments_meters: "м", // Meters label
+                segments_total: polyglot.t("main.rangePluginTotal"), // Total distance label
+                segments_meters: "m", // Meters label
             },
         };
         L.Control.qgsmeasure(qgsmeasureOptions).addTo(map);
@@ -293,12 +293,12 @@ if (mapElement) {
     if (!hiddenButtonsMode) {
         let lassoOptions = {
             position: 'topleft',
-            title: 'Измеритель площади'
+            title: polyglot.t("main.squarePlugin")
         };
         L.control.lasso(lassoOptions).addTo(map);
         map.on('lasso.finished', event => {
             let area = getArea(event.latLngs);
-            alert(area.toFixed(2) + ' км²')
+            alert(area.toFixed(2) + ' km²')
         });
     }
 
@@ -311,7 +311,7 @@ if (mapElement) {
             weight: 3,
             clickable: false
         };
-        L.Control.FileLayerLoad.LABEL = '<img class="icon" src="./images/gpx-file-format-symbol-24.png" alt="Просмотр GPX/KML" style="margin-top: 3px;"/>';
+        L.Control.FileLayerLoad.LABEL = '<img class="icon" src="./images/gpx-file-format-symbol-24.png" alt="'+polyglot.t("main.GPXview")+'" style="margin-top: 3px;"/>';
         let gpxViewerControl = L.Control.fileLayerLoad({
             fitBounds: true,
             fileSizeLimit: 10240,
@@ -328,10 +328,10 @@ if (mapElement) {
         gpxViewerControl.addTo(map);
         gpxViewerControl.loader.on('data:loaded', function (e) {
             let distance = getDistance(e.layer.getLayers()[0].getLatLngs());
-            notificationControl.info('Трек', 'Длина трека <b>' + e.filename + '</b> - ' + distance + ' км.');
+            notificationControl.info(polyglot.t("main.track"), polyglot.t("main.trackLength") + ' <b>' + e.filename + '</b> - ' + distance + ' km.');
         });
         gpxViewerControl.loader.on('data:error', function (e) {
-            notificationControl.alert('Трек', 'Ошибка загрузки трека: ' + e.error);
+            notificationControl.alert(polyglot.t("main.track"), polyglot.t("main.trackError") + e.error);
         });
     }
 
@@ -340,7 +340,7 @@ if (mapElement) {
         let sliderOptions = {
             id: 'opacitySlider',
             orientation: 'vertical',
-            title: 'Прозрачность карт',
+            title: polyglot.t("main.opacity"),
             min: 0,
             max: 1,
             step: .1,
@@ -689,7 +689,7 @@ function buildPopupText(m, latLngs) {
 
     // площадь
     let area = m.area.toFixed(2);
-    result += '&nbsp;-&nbsp;' + area + '&nbsp;км<sup>2</sup>';
+    result += '&nbsp;-&nbsp;' + area + '&nbsp;km<sup>2</sup>';
     result += '</b><hr />';
 
     // инфа о карте
@@ -707,9 +707,9 @@ function buildPopupText(m, latLngs) {
     // автор-составитель
     if (m.author) {
         if (Array.isArray(m.author)) {
-            result += 'Авторы-составители:';
+            result += polyglot.t("main.mapAuthors");
         } else {
-            result += 'Автор-составитель: ';
+            result += polyglot.t("main.mapAuthor");
         }
         result += buildAuthors(m);
     }
@@ -717,20 +717,20 @@ function buildPopupText(m, latLngs) {
     // владелец
     if (m.owner) {
         if (Array.isArray(m.owner)) {
-            result += 'Владельцы:';
+            result += polyglot.t("main.mapOwners");
         }
         result += buildOwners(m);
     }
 
     // закрытый район
     if (m.restricted) {
-        result += '<span class="restricted-text">Район закрыт ' + m.restricted + '.</span><br />';
+        result += '<span class="restricted-text">'+polyglot.t("main.mapClosed") + m.restricted + '.</span><br />';
     }
 
     // GPS-трансляция
     if (m.gps) {
         result += '<span class="gps-info"><img src="./images/o-gps.ico" /> ';
-        result += 'GPS-трансляция: ' + buildGpsLinks(m);
+        result += polyglot.t("main.mapTranslation") + buildGpsLinks(m);
         result += '.</span><br />';
     }
 
@@ -738,24 +738,24 @@ function buildPopupText(m, latLngs) {
     let link = m.link;
     if (link) {
         if (!Array.isArray(link) && link.startsWith('http')) {
-            result += 'Скачать можно <a href="' + link + '" target="_blank">тут</a>.';
+            result += polyglot.t("main.mapDownload")+' <a href="' + link + '" target="_blank">link</a>.';
         } else {
-            result += 'Скачать можно тут: ' + buildDownloadLinks(link) + '.';
+            result += polyglot.t("main.mapDownload") + buildDownloadLinks(link) + '.';
         }
     } else {
         if (isMapHidden(m)) {
-            result += 'Просмотр карты не разрешён правообладателем или не уместен.';
+            result += polyglot.t("main.mapViewRestricted");
         } else {
-            result += 'Посмотреть карту отдельно можно <a href="' + m.url + '" target="_blank">тут</a>.';
+            result += polyglot.t("main.mapViewLink")+'<a href="' + m.url + '" target="_blank">link</a>.';
         }
     }
     if (!m.url.includes('olive.png')) {
         let mapLinkUrl = mapLink(m.url);
         let onclick = 'onclick="copyToClipboard(\'' + mapLinkUrl + '\'); return false;"';
-        result += '<br />Поделиться <a href="' + mapLinkUrl + '" target="_blank">ссылкой</a> на карту: <a href="#" ' + onclick + ' target="_blank"><img src="./images/copy.png" alt="Copy" title="Copy" style="margin-bottom: -3px;" /></a>';
+        result += '<br />'+polyglot.t("main.mapShare")+' <a href="' + mapLinkUrl + '" target="_blank">'+polyglot.t("main.mapShareLink")+': <a href="#" ' + onclick + ' target="_blank"><img src="./images/copy.png" alt="Copy" title="Copy" style="margin-bottom: -3px;" /></a>';
     }
     let onclick = 'onclick="hideMap(map, \'' + m.url + '\'); return false;"';
-    result += '<br /><div class="hide-map-link"><a href="#" ' + onclick + '>Скрыть эту карту</a></div>';
+    result += '<br /><div class="hide-map-link"><a href="#" ' + onclick + '>'+polyglot.t("main.mapHide")+'</a></div>';
 
     if (icon) {
         result += '</div>';
@@ -1003,6 +1003,6 @@ function downloadSheet() {
     location.href = SHEET_PAGE;
 }
 
-function callCenter() {
-    window.open('tg://resolve?domain=o_maps', '_blank').focus();
-}
+// function callCenter() {
+//     window.open('tg://resolve?domain=o_maps', '_blank').focus();
+// }
