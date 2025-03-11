@@ -8,23 +8,24 @@ function isMapHidden(m) {
 
 function mapLink(url, region) {
     let pathname = location.pathname;
-    if (region) {
-        pathname = '/' + region + '.html';
-    } else
-    if (pathname.includes('charts-')) {
-        pathname = pathname.split('charts-').join('');
-    }
-    else if (pathname.includes('sheet-')) {
-        pathname = pathname.split('sheet-').join('');
-    }
+    // if (region) {
+    //     pathname = '/' + region + '.html';
+    // } else
+    // if (pathname.includes('charts-')) {
+    //     pathname = pathname.split('charts-').join('');
+    // }
+    // else if (pathname.includes('sheet-')) {
+    //     pathname = pathname.split('sheet-').join('');
+    // }
+    pathname = pathname.replace('list.html','index.html');
     return location.origin + pathname + '?map=' + extractFileName(url);
 }
 
 function authorLink(author) {
     let pathname = location.pathname;
-    if (pathname.includes('charts-')) {
-        pathname = pathname.split('charts-').join('');
-    }
+    // if (pathname.includes('charts-')) {
+    //     pathname = pathname.split('charts-').join('');
+    // }
     return location.origin + pathname + '?author=' + author;
 }
 
