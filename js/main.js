@@ -19,6 +19,7 @@ let mapOpacity = 1;
 let imagesLoadCounter = 0;
 let selectedOverlay, selectedMap;
 let visibleMaps;
+let urlMapLocated = false;
 
 let hideMapsOnMove = false;
 let hmo = localStorage.getItem('hideMapsOnMove');
@@ -592,6 +593,12 @@ function buildMap(m) {
     allocateMap(m, imgLayer);
 
     mapOverlays.push(imgLayer);
+
+    if (MAP_NAME_PARAM && !urlMapLocated && m.url.includes(MAP_NAME_PARAM)) {
+        map.fitBounds(imgLayer.getBounds());
+        upZindex(imgLayer);
+        urlMapLocated = true;
+    }
 }
 
 // show/hide maps according to the selected layers
